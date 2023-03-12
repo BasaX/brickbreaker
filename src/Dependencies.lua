@@ -6,6 +6,12 @@ Class = require 'lib/class'
 
 require 'src/constants'
 
+require 'src/Ball'
+
+require 'src/Brick'
+
+require 'src/LevelMaker'
+
 require 'src/Paddle'
 
 require 'src/Util'
