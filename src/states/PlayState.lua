@@ -5,6 +5,7 @@ function PlayState:enter(params)
   self.bricks = params.bricks
   self.health = params.health
   self.score = params.score
+  self.highScores = params.highScores
   self.ball = params.ball
   self.level = params.level
 
@@ -60,6 +61,7 @@ function PlayState:update(dt)
                 paddle = self.paddle,
                 health = self.health,
                 score = self.score,
+                highScores = self.highScores,
                 ball = self.ball
             })
           end
@@ -86,7 +88,9 @@ function PlayState:update(dt)
               self.ball.y = brick.y + 16
           end
 
-          self.ball.dy = self.ball.dy * 1.02
+          if math.abs(self.ball.dy) < 150 then
+            self.ball.dy = self.ball.dy * 1.02
+          end
 
           break
       end
@@ -98,14 +102,17 @@ function PlayState:update(dt)
 
       if self.health == 0 then
           gStateMachine:change('game-over', {
-              score = self.score
+              score = self.score,
+              highScores = self.highScores
           })
       else
           gStateMachine:change('serve', {
               paddle = self.paddle,
               bricks = self.bricks,
               health = self.health,
-              score = self.score
+              score = self.score,
+              highScores = self.highScores,
+              level = self.level
           })
       end
     end
