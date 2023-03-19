@@ -66,6 +66,8 @@ function PlayState:enter(params)
   self.timer3 = 0
   self.powerup3Drop = math.random(10, 30)
 
+  self.timer4 = 0
+
   gSounds['boss-theme-2']:stop()
   gSounds['music']:play()
   gSounds['music']:setLooping(true)
@@ -250,10 +252,14 @@ function PlayState:update(dt)
 
           gSounds['recover']:play()
       end
+
+    if self.paddle.boss2Skill then
+      self.paddle:transform(17)
+    end
     
 
     --aca reseteo los efectos del powerup
-    if not self.powerup.isActive and not self.powerup2.isActive and not self.powerup3.isActive then
+    if not self.powerup.isActive and not self.powerup2.isActive and not self.powerup3.isActive and not self.paddle.boss2Skill then
       self.paddle:transform(0)
     end
 

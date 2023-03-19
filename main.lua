@@ -8,6 +8,8 @@ function love.load()
 
     love.window.setTitle('BrickBreaker')
 
+    gBossCounter = 0
+
     gFonts = {
         ['small'] = love.graphics.newFont('fonts/font.ttf', 8),
         ['medium'] = love.graphics.newFont('fonts/font.ttf', 16),

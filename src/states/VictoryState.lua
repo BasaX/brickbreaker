@@ -9,6 +9,10 @@ function VictoryState:enter(params)
     self.ball = params.ball
 
     self.boss = Boss()
+    
+    gSounds['boss-theme-2']:stop()
+    gSounds['music']:play()
+    gSounds['music']:setLooping(true)
 end
 
 function VictoryState:update(dt)
@@ -18,8 +22,8 @@ function VictoryState:update(dt)
     self.ball.y = self.paddle.y - 8
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        self.boss.tier = self.level + 2
-        self.boss.bossSkin = ((self.level + 1) / 3) + 1
+        self.boss.tier = self.level + 1
+        self.boss.bossSkin =((self.level + 1) / 3) + gBossCounter,
         gStateMachine:change('serve', {
             level = self.level + 1,
             bricks = LevelMaker.createMap(self.level + 1),
@@ -42,7 +46,7 @@ function VictoryState:render()
 
     if (self.level % 3 == 0) then
       love.graphics.setFont(gFonts['large'])
-      love.graphics.printf('The power of this Ancient is yours!!', 0, VIRTUAL_HEIGHT / 5,
+      love.graphics.printf('The power of this Ancient is yours!!', 0, VIRTUAL_HEIGHT / 8,
           VIRTUAL_WIDTH, 'center')  
     end
 

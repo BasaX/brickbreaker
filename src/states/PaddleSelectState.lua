@@ -33,7 +33,7 @@ function PaddleSelectState:update(dt)
             health = 3,
             score = 0,
             highScores = self.highScores,
-            level = 5,
+            level = 1,
             boss = Boss(),
             bossMap = LevelMaker.createBossMap()
         })

@@ -43,6 +43,8 @@ function ServeState:update(dt)
     self.ball3.y = self.paddle.y - 8
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+      self.paddle.timer = 0
+      self.paddle.boss2Skill = false
       if self.level % 3 == 0 then
         gStateMachine:change('boss', {
           paddle = self.paddle,

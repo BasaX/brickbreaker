@@ -1,15 +1,5 @@
 BossState = Class{__includes = BaseState}
 
-local bosses = {
-  [1] = function() self.paddle.boss1Killed = true end,
-  [2] = function() self.paddle.boss2Killed = true end,
-  [3] = function() self.paddle.boss3Killed = true end,
-  [4] = function() self.paddle.boss4Killed = true end,
-  [5] = function() self.paddle.boss5Killed = true end,
-  [6] = function() self.paddle.boss6Killed = true end,
-  [7] = function() self.paddle.boss7Killed = true end,
-}
-
 function BossState:enter(params)
   self.paddle = params.paddle
   self.bricks = params.bossMap
@@ -266,10 +256,15 @@ function BossState:update(dt)
 
           gSounds['recover']:play()
       end
+
+    
+      if self.paddle.boss2Skill then
+        self.paddle:transform(17)
+    end
     
 
     --aca reseteo los efectos del powerup
-    if not self.powerup.isActive and not self.powerup2.isActive and not self.powerup3.isActive then
+    if not self.powerup.isActive and not self.powerup2.isActive and not self.powerup3.isActive and not self.paddle.boss2Skill then
       self.paddle:transform(0)
     end
 
@@ -468,6 +463,36 @@ function BossState:update(dt)
         if self:checkVictory() then
           gSounds['victory']:play()
 
+          gBossCounter = gBossCounter + 1
+          
+          if gBossCounter == 1 then
+            self.paddle.boss1Killed = true
+          end
+
+          if gBossCounter == 2 then
+            self.paddle.boss2Killed = true
+          end
+
+          if gBossCounter == 3 then
+            self.paddle.boss3Killed = true
+          end
+
+          if gBossCounter == 4 then
+            self.paddle.boss4Killed = true
+          end
+
+          if gBossCounter == 5 then
+            self.paddle.boss5Killed = true
+          end
+
+          if gBossCounter == 6 then
+            self.paddle.boss6Killed = true
+          end
+
+          if gBossCounter == 7 then
+            self.paddle.boss7Killed = true
+          end
+
           gStateMachine:change('victory', {
               level = self.level,
               paddle = self.paddle,
@@ -511,6 +536,36 @@ function BossState:update(dt)
 
       if self:checkVictory() then
         gSounds['victory']:play()
+
+        gBossCounter = gBossCounter + 1
+          
+        if gBossCounter == 1 then
+          self.paddle.boss1Killed = true
+        end
+
+        if gBossCounter == 2 then
+          self.paddle.boss2Killed = true
+        end
+
+        if gBossCounter == 3 then
+          self.paddle.boss3Killed = true
+        end
+
+        if gBossCounter == 4 then
+          self.paddle.boss4Killed = true
+        end
+
+        if gBossCounter == 5 then
+          self.paddle.boss5Killed = true
+        end
+
+        if gBossCounter == 6 then
+          self.paddle.boss6Killed = true
+        end
+
+        if gBossCounter == 7 then
+          self.paddle.boss7Killed = true
+        end
 
         gStateMachine:change('victory', {
             level = self.level,
@@ -557,10 +612,34 @@ function BossState:update(dt)
     if self:checkVictory() then
       gSounds['victory']:play()
 
-      local option = self.level / 3
-      local func = bosses[option]
-      if func then
-        func()
+      gBossCounter = gBossCounter + 1
+          
+      if gBossCounter == 1 then
+        self.paddle.boss1Killed = true
+      end
+
+      if gBossCounter == 2 then
+        self.paddle.boss2Killed = true
+      end
+
+      if gBossCounter == 3 then
+        self.paddle.boss3Killed = true
+      end
+
+      if gBossCounter == 4 then
+        self.paddle.boss4Killed = true
+      end
+
+      if gBossCounter == 5 then
+        self.paddle.boss5Killed = true
+      end
+
+      if gBossCounter == 6 then
+        self.paddle.boss6Killed = true
+      end
+
+      if gBossCounter == 7 then
+        self.paddle.boss7Killed = true
       end
 
       gStateMachine:change('victory', {

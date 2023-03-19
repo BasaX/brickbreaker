@@ -60,6 +60,10 @@ function GenerateQuadsPaddles(atlas)
         y = y + 32
     end
 
+    quads[counter] = love.graphics.newQuad(x, y, 192, 16, atlas:getDimensions()) --para skin skill boss2
+    x = 0
+    y = y + 16
+
     return quads
 end
 
@@ -95,7 +99,7 @@ end
 
 function GenerateQuadsPowerUps(atlas)
   local x = 0
-  local y = 192
+  local y = 240
 
   local counter = 1
   local quads = {}
