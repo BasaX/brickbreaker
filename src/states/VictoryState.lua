@@ -7,6 +7,8 @@ function VictoryState:enter(params)
     self.paddle = params.paddle
     self.health = params.health
     self.ball = params.ball
+
+    self.boss = Boss()
 end
 
 function VictoryState:update(dt)
@@ -16,13 +18,17 @@ function VictoryState:update(dt)
     self.ball.y = self.paddle.y - 8
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+        self.boss.tier = self.level + 2
+        self.boss.bossSkin = ((self.level + 1) / 3) + 1
         gStateMachine:change('serve', {
             level = self.level + 1,
             bricks = LevelMaker.createMap(self.level + 1),
             paddle = self.paddle,
             health = self.health,
             score = self.score,
-            highScores = self.highScores
+            highScores = self.highScores,
+            boss = self.boss,
+            bossMap = LevelMaker.createBossMap()
         })
     end
 end
@@ -33,6 +39,12 @@ function VictoryState:render()
 
     renderHealth(self.health)
     renderScore(self.score)
+
+    if (self.level % 3 == 0) then
+      love.graphics.setFont(gFonts['large'])
+      love.graphics.printf('The power of this Ancient is yours!!', 0, VIRTUAL_HEIGHT / 5,
+          VIRTUAL_WIDTH, 'center')  
+    end
 
     love.graphics.setFont(gFonts['large'])
     love.graphics.printf("Level " .. tostring(self.level) .. " complete!",

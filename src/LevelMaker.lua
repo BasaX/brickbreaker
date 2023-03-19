@@ -77,6 +77,33 @@ function LevelMaker.createMap(level)
   if #bricks == 0 then
       return self.createMap(level)
   else
+      if level > 3 then
+        b = Brick(168, 32)
+        b.isSpecial = true
+        b.tier = 1
+        table.insert(bricks, b)
+      end
       return bricks
   end
+end
+
+function LevelMaker.createBossMap(level)
+  local bricks = {}
+
+  b1 = Brick((VIRTUAL_WIDTH / 8), (VIRTUAL_HEIGHT / 3))
+  b1.isSpecial = true
+  b1.tier = 1
+  table.insert(bricks, b1)
+
+  b2 = Brick((VIRTUAL_WIDTH / 2), (VIRTUAL_HEIGHT / 3))
+  b2.isSpecial = true
+  b2.tier = 1
+  table.insert(bricks, b2)
+
+  b3 = Brick((VIRTUAL_WIDTH - VIRTUAL_WIDTH / 8), (VIRTUAL_HEIGHT / 3))
+  b3.isSpecial = true
+  b3.tier = 1
+  table.insert(bricks, b3)
+
+  return bricks
 end

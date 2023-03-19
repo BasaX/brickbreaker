@@ -1,5 +1,20 @@
 Paddle = Class{}
 
+local cases = {
+  [0] = 64,  --default paddle
+	[1] = 32,  --s paddle
+	[2] = 96,  --xl paddle
+	[3] = 128   --xxl paddle
+}
+
+local sizes = {
+  [0] = 2,
+  [1] = 1,
+  [2] = 3,
+  [3] = 4,
+}
+
+
 function Paddle:init(skin)
     self.x = VIRTUAL_WIDTH / 2 - 32
 
@@ -13,13 +28,26 @@ function Paddle:init(skin)
     self.skin = skin
 
     self.size = 2
+
+    self.boss1Killed = false
+    self.boss2Killed = false
+    self.boss3Killed = false
+    self.boss4Killed = false
+    self.boss5Killed = false
+    self.boss6Killed = false
+    self.boss7Killed = false
+end
+
+function Paddle:transform(size)
+    self.size = sizes[size]
+    self.width = cases[size]
 end
 
 function Paddle:update(dt)
-    if love.keyboard.isDown('left') then
-        self.dx = -PADDLE_SPEED
-    elseif love.keyboard.isDown('right') then
-        self.dx = PADDLE_SPEED
+    if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
+        self.dx = ternary(self.boss1Killed, function() return -PADDLE_SPEED end, function() return -PADDLE_SPEED - 40 end)
+    elseif love.keyboard.isDown('right') or love.keyboard.isDown('d') then
+        self.dx = ternary(self.boss1Killed, function() return PADDLE_SPEED end, function() return PADDLE_SPEED + 40 end)
     else
         self.dx = 0
     end

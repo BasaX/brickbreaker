@@ -10,9 +10,13 @@ require 'src/Ball'
 
 require 'src/Brick'
 
+require 'src/PowerUp'
+
 require 'src/LevelMaker'
 
 require 'src/Paddle'
+
+require 'src/Boss'
 
 require 'src/Util'
 
@@ -27,3 +31,4 @@ require 'src/states/VictoryState'
 require 'src/states/HighScoreState'
 require 'src/states/EnterHighScoreState'
 require 'src/states/PaddleSelectState'
+require 'src/states/BossState'

@@ -3,6 +3,11 @@ GameOverState = Class{__includes = BaseState}
 function GameOverState:enter(params)
     self.score = params.score
     self.highScores = params.highScores
+
+    
+    gSounds['boss-theme-2']:stop()
+    gSounds['music']:play()
+    gSounds['music']:setLooping(true)
 end
 
 function GameOverState:update(dt)

@@ -92,3 +92,44 @@ function GenerateQuadsBalls(atlas)
 
   return quads
 end
+
+function GenerateQuadsPowerUps(atlas)
+  local x = 0
+  local y = 192
+
+  local counter = 1
+  local quads = {}
+
+  for i = 0, 10 do
+      quads[counter] = love.graphics.newQuad(x, y, 16, 16, atlas:getDimensions())
+      x = x + 16
+      counter = counter + 1
+  end
+
+  return quads
+end
+
+function GenerateQuadsBosses(atlas)
+  local x = 0
+  local y = 0
+
+  local counter = 1
+  local quads = {}
+
+  for i = 0, 2 do
+    -- boss inicial
+    quads[counter] = love.graphics.newQuad(x, y, 64, 16,
+        atlas:getDimensions())
+    counter = counter + 1
+    -- base forma final
+    quads[counter] = love.graphics.newQuad(x + 64, y, 64, 64,
+        atlas:getDimensions())
+    counter = counter + 1
+
+    -- x e y para las próximas filas
+    x = 0
+    y = y + 64
+end
+
+  return quads
+end

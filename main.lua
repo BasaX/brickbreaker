@@ -20,7 +20,9 @@ function love.load()
         ['main'] = love.graphics.newImage('graphics/brickbreaker.png'),
         ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
         ['hearts'] = love.graphics.newImage('graphics/hearts.png'),
-        ['particle'] = love.graphics.newImage('graphics/particle.png')
+        ['particle'] = love.graphics.newImage('graphics/particle.png'),
+        ['specialBricks'] = love.graphics.newImage('graphics/specialBricks.png'),
+        ['bossesSprite'] = love.graphics.newImage('graphics/bossesSprite.png')
     }
 
     gFrames = {
@@ -28,7 +30,10 @@ function love.load()
       ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
       ['balls'] = GenerateQuadsBalls(gTextures['main']),
       ['bricks'] = GenerateQuadsBricks(gTextures['main']),
-      ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9)
+      ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9),
+      ['powerups'] = GenerateQuadsPowerUps(gTextures['main']),
+      ['specialBrick'] = GenerateQuads(gTextures['specialBricks'], 32, 16),
+      ['bosses'] = GenerateQuadsBosses(gTextures['bossesSprite'])
     }
     
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -51,8 +56,13 @@ function love.load()
         ['recover'] = love.audio.newSource('sounds/recover.wav', 'static'),
         ['high-score'] = love.audio.newSource('sounds/high_score.wav', 'static'),
         ['pause'] = love.audio.newSource('sounds/pause.wav', 'static'),
+        ['metal-sound'] = love.audio.newSource('sounds/metal_sound.wav', 'static'),
+        ['boss-hit-1'] = love.audio.newSource('sounds/boss-hit-1.wav', 'static'),
+        ['boss-hit-2'] = love.audio.newSource('sounds/boss-hit-2.wav', 'static'),
 
-        ['music'] = love.audio.newSource('sounds/music.wav', 'static')
+        ['music'] = love.audio.newSource('sounds/music.wav', 'static'),
+        ['boss-theme-1'] = love.audio.newSource('sounds/boss_theme_1.wav', 'static'),
+        ['boss-theme-2'] = love.audio.newSource('sounds/boss_theme_2.wav', 'static')
     }
 
   
@@ -64,12 +74,12 @@ function love.load()
         ['victory'] = function() return VictoryState() end,
         ['high-scores'] = function() return HighScoreState() end,
         ['enter-high-score'] = function() return EnterHighScoreState() end,
-        ['paddle-select'] = function() return PaddleSelectState() end
+        ['paddle-select'] = function() return PaddleSelectState() end,
+        ['boss'] = function() return BossState() end
     }
     gStateMachine:change('start', {
       highScores = loadHighScores()
     })
-
     gSounds['music']:play()
     gSounds['music']:setLooping(true)
 
@@ -183,4 +193,8 @@ function renderScore(score)
   love.graphics.setFont(gFonts['small'])
   love.graphics.print('Score:', VIRTUAL_WIDTH - 60, 5)
   love.graphics.printf(tostring(score), VIRTUAL_WIDTH - 50, 5, 40, 'right')
+end
+
+function ternary( cond , T , F , ...)
+  if cond then return T(...) else return F(...) end
 end

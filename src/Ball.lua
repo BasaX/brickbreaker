@@ -8,6 +8,9 @@ function Ball:init(skin)
     self.dx = 0
 
     self.skin = skin
+
+    self.isVisible = false
+    self.isActive = false
 end
 
 function Ball:collides(target)
@@ -51,9 +54,15 @@ function Ball:update(dt)
         self.dy = -self.dy
         gSounds['wall-hit']:play()
     end
+
+    if self.y >= VIRTUAL_HEIGHT then
+      self.isActive = false
+  end
 end
 
 function Ball:render()
+  if self.isVisible then
     love.graphics.draw(gTextures['main'], gFrames['balls'][self.skin],
         self.x, self.y)
+  end
 end
